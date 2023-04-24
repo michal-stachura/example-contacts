@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=contacts_db
+POSTGRES_USER=contacts_usr
+POSTGRES_PASSWORD=contacts_password123
