@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.validators import MinLengthValidator
+
 from django.utils.translation import gettext_lazy as _
 from example_contacts.utils.common_model import CommonModel
 
@@ -15,7 +17,10 @@ class ContactForm(CommonModel):
         ("resolved", _("Resolved")),
     )
     
-    name = models.CharField(max_length=50)
+    name = models.CharField(
+        max_length=50,
+        validators=[MinLengthValidator(5)]
+    )
     email = models.EmailField(max_length=150)
     subject = models.CharField(
         choices=SUBJECT_CHOICES,

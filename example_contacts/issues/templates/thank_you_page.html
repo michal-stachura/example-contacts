@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}Contact Form{% endblock %}
+
+{% block content %}
+<h1>{% translate "Thank you for the message" %}</h1>
+<p>{% translate "We will contact you soon." %}</p>
+<a href="{% url 'home' %}">{% translate "Home page" %}</a>
+{% endblock content %}
