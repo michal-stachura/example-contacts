@@ -69,6 +69,14 @@
                   <a id="log-in-link" class="nav-link" href="{% url 'account_login' %}">{% translate "Sign In" %}</a>
                 </li>
               {% endif %}
+              {% if request.user.is_superuser %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'home' %}">{% translate "Issues List" %}</a>
+                </li>
+              {% endif %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'issues:contact_form' %}">{% translate "Contact" %}</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -88,7 +96,7 @@
       {% endif %}
 
       {% block content %}
-        <p>Use this document as a way to quick start any new project.</p>
+        <h1>{% translate "Home page" %}</h1>
       {% endblock content %}
 
     </div> <!-- /container -->
