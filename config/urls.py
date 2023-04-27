@@ -30,6 +30,11 @@ urlpatterns += [
         SpectacularSwaggerView.as_view(url_name="api-schema"),
         name="api-docs",
     ),
+    # Apps
+    path(
+        f"api/{settings.API_VERSION}/issues/",
+        include("example_contacts.issues.urls-api", namespace="api-issues"),
+    )
 ]
 
 if settings.DEBUG:

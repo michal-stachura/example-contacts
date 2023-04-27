@@ -1,4 +1,17 @@
 
+## 1.3 (2023-27-04)
+Features:
+  - Add Api endpoints -> [d0719ed](https://github.com/michal-stachura/example-contacts/pull/5/commits/d0719ed6cd415fc923d8ce7908d6059f82d8609b)
+    - Add api contact form list.
+    - Add api contact form details.
+    - Add api update status endpoint.
+    - Add send contact form via api endpoint.
+    
+Bug fixes:
+  - Prevent set status other than new for newly created objects
+
+
+
 ## 1.2 (2023-27-04)
 
 Features:
