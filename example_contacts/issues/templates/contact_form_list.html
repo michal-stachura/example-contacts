@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Form{% endblock %}
+
+{% block content %}
+<h1>Issues list</h1>
+<table class="table bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Subject</th>
+      <th>Created at</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for contact_form in contact_forms %}
+    <tr>
+      <td>{{ contact_form.name }}</td>
+      <td>{{ contact_form.email }}</td>
+      <td>{{ contact_form.get_subject_display }}</td>
+      <td>{{ contact_form.created_at }}</td>
+      <td>{{ contact_form.get_status_display }}</td>
+      <td><a href="{% url "issues:contact_form_detail" contact_form.id %}"class="btn btn-primary">Details</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="pagination">
+  <span class="step-links">
+    <span class="current-page small d-block">
+      Page {{ contact_forms.number }} of {{ contact_forms.paginator.num_pages }}.
+    </span>
+    {% if contact_forms.has_previous %}
+      <a class="btn btn-secondary" href="?page=1">&laquo; first</a>
+      <a class="btn btn-secondary" href="?page={{ contact_forms.previous_page_number }}">&lsaquo; prev</a>
+    {% endif %}
+    {% if contact_forms.has_next %}
+      <a class="btn btn-secondary" href="?page={{ contact_forms.next_page_number }}">next &rsaquo;</a>
+      <a class="btn btn-secondary" href="?page={{ contact_forms.paginator.num_pages }}">last &raquo;</a>
+    {% endif %}
+  </span>
+</div>
+
+{% endblock content %}
