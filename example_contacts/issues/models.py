@@ -46,3 +46,8 @@ class ContactForm(CommonModel):
     
     def __str__(self) -> str:
         return f"{self.name} - {self.subject}"
+    
+    def save(self, *args, **kwargs) -> None:
+        if self.is_being_created is True:
+            self.status = "new"  # Prevent adding via Api with other status
+        super().save(*args, **kwargs)
