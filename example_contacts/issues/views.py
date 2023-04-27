@@ -6,7 +6,71 @@ from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render, redirect
 from example_contacts.issues.forms import ContactForm as CForm
 from example_contacts.issues.models import ContactForm
+from example_contacts.issues.serializers import (
+    ContactFormSerializer,
+    ContactFormDetailSerializer
+)
 
+from rest_framework import status
+from rest_framework.viewsets import GenericViewSet
+from rest_framework.mixins import (
+    ListModelMixin,
+    RetrieveModelMixin,
+    CreateModelMixin,
+)
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.decorators import action
+from rest_framework.response import Response
+
+# Api Views
+class ContactFormViewSet(
+    GenericViewSet,
+    ListModelMixin,
+    CreateModelMixin,
+    RetrieveModelMixin,
+):
+    queryset = ContactForm.objects.all()
+    lookup_field = "id"
+    
+    def get_serializer_class(self):
+        if self.action in ["retrieve", "create"]:
+            return ContactFormDetailSerializer
+        return ContactFormSerializer
+    
+    def get_permissions(self):
+        if self.action in ["create"]:
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [IsAuthenticated]
+        return [permission() for permission in permission_classes]
+    
+    @action(
+        detail=True, methods=["patch"], url_path="status-change", url_name="status-change"
+    )
+    def update_status(self, request, *args, **kwargs):
+        cf = self.get_object()
+        cf_status = request.data.get("status", None)
+        serializer = self.get_serializer(
+            cf,
+            data={"status": cf_status},
+            partial=True,
+            context={
+                "excluded_fields": [
+                    "id",
+                    "name",
+                    "subject",
+                    "email",
+                    "message",
+                ]
+            }
+        )
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+# Common views
 def contact_form(request):
     if request.method == "POST":
         form = CForm(request.POST)
