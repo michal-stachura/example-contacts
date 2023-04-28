@@ -1,3 +1,7 @@
+## 1.3 (2023-28-04)
+Features:
+  - Add Unit Tests + seed script -> [cbc545c](https://github.com/michal-stachura/example-contacts/commit/cbc545ccd5582ca0f0dc1c9dadf007bea1bb040c)
+  
 
 ## 1.3 (2023-27-04)
 Features:

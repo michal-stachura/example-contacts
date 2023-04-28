@@ -5,9 +5,9 @@
 
 {% block content %}
 <h1>Please Leave message here</h1>
-<form method="post">
+<form method="POST" action="{% url 'issues:contact_form' %}">
   {% csrf_token %}
   {{ form|crispy }}
-  <button type="submit">Submit</button>
+  <button class="btn btn-primary" type="submit">Submit</button>
 </form>
 {% endblock content %}
