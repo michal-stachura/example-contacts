@@ -10,7 +10,7 @@ run:
 build:
 	sudo docker-compose -p contacts -f local.yml build
 
-tests:
+test:
 	sudo docker-compose -p contacts -f local.yml run --rm django pytest -x
 
 shell:
